@@ -13,7 +13,7 @@ url = "data/winequality-red.csv"
 # Cargar el dataset desde la URL
 df = pd.read_csv(url, sep=";")
 
-print(wine.groupby('quality').mean())
+print(df.groupby('quality').mean())
 
 
 print(df.groupby('quality').mean())
@@ -35,11 +35,11 @@ plt.axvline(0, color='black', linestyle='--', linewidth=1)
 plt.tight_layout()
 plt.show()
 
-top_positive = correlation.sort_values(ascending=False).head(3).index
-top_negative = correlation.sort_values().head(3).index
+# top_positive = correlation.sort_values(ascending=False).head(3).index
+# top_negative = correlation.sort_values().head(3).index
 
-# Filtrar DataFrame
-selected_features = list(top_positive) + list(top_negative) + ['quality']
-sns.pairplot(df[selected_features], hue='quality', palette="viridis", corner=True)
-plt.suptitle("Pairplot de las variables más influyentes", y=1.02)
-plt.show()
+# # Filtrar DataFrame
+# selected_features = list(top_positive) + list(top_negative) + ['quality']
+# sns.pairplot(df[selected_features], hue='quality', palette="viridis", corner=True)
+# plt.suptitle("Pairplot de las variables más influyentes", y=1.02)
+# plt.show()
