@@ -2,51 +2,51 @@ import pandas as pd
 import numpy as np
 import os
 
-def limpiar_dataset(csv_file_path, output_folder="cleanDatasets"):
-    # Cargar el dataset desde un archivo CSV (local o remoto)
+def clean_dataset(csv_file_path, output_folder="cleanDatasets"):
+    # Load the dataset from a CSV file (local or remote)
     df = pd.read_csv(csv_file_path)
     
-    # Inspección inicial
-    print("Primeras filas del dataset:")
+    # Initial inspection
+    print("First rows of the dataset:")
     print(df.head())
 
-    # Inspección general de los datos
-    print("\nInformación general del DataFrame:")
+    # General data inspection
+    print("\nGeneral information of the DataFrame:")
     print(df.info())
     
-    print("\nEstadísticas descriptivas:")
+    print("\nDescriptive statistics:")
     print(df.describe())
     
-    print("\nValores nulos por columna:")
+    print("\nMissing values by column:")
     print(df.isnull().sum())
 
-    # Limpiar los datos
-    print("\nEliminando duplicados y rellenando valores nulos...")
-    # Eliminamos filas duplicadas si existen
+    # Data cleaning
+    print("\nRemoving duplicates and filling missing values...")
+    # Remove duplicate rows if they exist
     df = df.drop_duplicates()
 
-    # Rellenamos los valores nulos con la media (solo en columnas numéricas)
+    # Fill missing values with the mean (only for numeric columns)
     df = df.fillna(df.mean(numeric_only=True))
 
-    # Verificación final
-    print("\nVista previa tras limpieza y transformación:")
+    # Final verification
+    print("\nPreview after cleaning and transformation:")
     print(df.head())
     
-    print("\nValores nulos después de limpieza:")
+    print("\nMissing values after cleaning:")
     print(df.isnull().sum())
 
-    # Crear la carpeta para guardar los datasets limpios si no existe
+    # Create the folder to save cleaned datasets if it doesn't exist
     if not os.path.exists(output_folder):
         os.makedirs(output_folder)
 
-    # Crear un nombre para el archivo limpio usando el nombre original
-    output_filename = os.path.basename(csv_file_path).replace('.csv', '_limpio.csv')
+    # Create a filename for the cleaned file using the original name
+    output_filename = os.path.basename(csv_file_path).replace('.csv', '_cleaned.csv')
 
-    # Guardar el dataset limpio
+    # Save the cleaned dataset
     output_path = os.path.join(output_folder, output_filename)
     df.to_csv(output_path, index=False)
-    print(f"\n✔️ Dataset limpio guardado como '{output_path}'")
+    print(f"\n✔️ Cleaned dataset saved as '{output_path}'")
 
-# Limpiar y guardar varios datasets
-limpiar_dataset("data/winequality-red.csv")
-limpiar_dataset("data/winequality-white.csv")
+# Clean and save multiple datasets
+clean_dataset("data/winequality-red.csv")
+clean_dataset("data/winequality-white.csv")
