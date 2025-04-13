@@ -1,5 +1,5 @@
 from clean import clean_dataset 
 
 # Clean and save multiple datasets
-clean_dataset("data/winequality-red.csv")
-clean_dataset("data/winequality-white.csv")
+df1=clean_dataset("data/winequality-red.csv")
+df2=clean_dataset("data/winequality-white.csv")
