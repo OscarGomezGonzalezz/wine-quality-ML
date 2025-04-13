@@ -47,6 +47,4 @@ def clean_dataset(csv_file_path, output_folder="cleanDatasets"):
     df.to_csv(output_path, index=False)
     print(f"\n✔️ Cleaned dataset saved as '{output_path}'")
 
-# Clean and save multiple datasets
-clean_dataset("data/winequality-red.csv")
-clean_dataset("data/winequality-white.csv")
+
