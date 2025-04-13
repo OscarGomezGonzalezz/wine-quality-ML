@@ -4,7 +4,7 @@ import os
 
 def clean_dataset(csv_file_path, output_folder="cleanDatasets"):
     # Load the dataset from a CSV file (local or remote)
-    df = pd.read_csv(csv_file_path)
+    df = pd.read_csv(csv_file_path, sep=";", quotechar='"')
     
     # Initial inspection
     print("First rows of the dataset:")
@@ -46,5 +46,10 @@ def clean_dataset(csv_file_path, output_folder="cleanDatasets"):
     output_path = os.path.join(output_folder, output_filename)
     df.to_csv(output_path, index=False)
     print(f"\n✔️ Cleaned dataset saved as '{output_path}'")
+    return df
+
+df1=clean_dataset("data/winequality-red.csv")
+df2=clean_dataset("data/winequality-white.csv")
+
 
 
