@@ -18,24 +18,7 @@ print(data.describe())
 
 
 
-sns.countplot(x='quality', data=data)
-plt.title('Distribución de Calidad de Vinos')
-plt.show()
 
-corr = data.corr()
-
-plt.figure(figsize=(12,10))
-sns.heatmap(corr, annot=True, cmap='coolwarm')
-plt.title('Matriz de Correlación')
-plt.show()
-
-features = data.columns[:-1]  # Todas menos 'quality'
-
-for feature in features:
-    plt.figure()
-    sns.boxplot(x='quality', y=feature, data=data)
-    plt.title(f'Relación entre {feature} y Calidad')
-    plt.show()
 
 
 #MODELO

@@ -43,3 +43,30 @@ plt.show()
 # sns.pairplot(df[selected_features], hue='quality', palette="viridis", corner=True)
 # plt.suptitle("Pairplot de las variables más influyentes", y=1.02)
 # plt.show()
+
+
+#------------------------------------------------PARTE JAVI ----------------------------------------------
+
+# Leer el CSV
+data = pd.read_csv('./data/winequality-red.csv', sep=';')
+
+# Ver primeras filas
+print(data.head())
+
+# Información general
+print(data.info())
+
+# Resumen estadístico
+print(data.describe())
+
+sns.countplot(x='quality', data=data)
+plt.title('Distribución de Calidad de Vinos')
+plt.show()
+
+corr = data.corr()
+
+plt.figure(figsize=(12,10))
+sns.heatmap(corr, annot=True, cmap='coolwarm')
+plt.title('Matriz de Correlación')
+plt.show()
+
