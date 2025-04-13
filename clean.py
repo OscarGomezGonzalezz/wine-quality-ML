@@ -48,8 +48,5 @@ def clean_dataset(csv_file_path, output_folder="cleanDatasets"):
     print(f"\n✔️ Cleaned dataset saved as '{output_path}'")
     return df
 
-df1=clean_dataset("data/winequality-red.csv")
-df2=clean_dataset("data/winequality-white.csv")
-
 
 
