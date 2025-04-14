@@ -7,11 +7,10 @@ def explore(df):
 
     print(df.groupby('quality').mean())
 
-#------------------------------------------------PARTE JAVI ----------------------------------------------
     sns.countplot(x='quality', data=df)
     plt.title('Distribución de Calidad de Vinos')
     plt.show()
-#---------------------------------------------------------------------------------------------------------
+    
     print(df.groupby('quality').mean())
 
     # Estadísticas por calidad
@@ -31,15 +30,12 @@ def explore(df):
     plt.tight_layout()
     plt.show()
 
-
-#------------------------------------------------PARTE JAVI ----------------------------------------------
     plt.figure(figsize=(12,10))
     corr = df.corr()
     sns.heatmap(corr, annot=True, cmap='coolwarm')
     plt.title('Matriz de Correlación')
     plt.show()
 
-#---------------------------------------------------------------------------------------------------------
 
     # top_positive = correlation.sort_values(ascending=False).head(3).index
     # top_negative = correlation.sort_values().head(3).index
