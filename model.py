@@ -1,66 +1,46 @@
-import pandas as pd
-import seaborn as sns
-import matplotlib.pyplot as plt
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler
-from sklearn.ensemble import RandomForestClassifier
-from sklearn.metrics import classification_report, confusion_matrix
-import numpy as np
+from tensorflow.keras.models import Sequential
+from tensorflow.keras.layers import Dense
 
-# Leer el CSV
-data = pd.read_csv('./data/winequality-red.csv', sep=';')
+def model(df):
 
-# Ver primeras filas
-print(data.head())
+    #MODELO
+    X = df.drop('quality', axis=1)
+    y = df['quality']
 
-# Información general
-print(data.info())
+    # Split
+    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
 
-# Resumen estadístico
-print(data.describe())
+    # Normalise: each column has mean 0 and standard deviation 1, so that the model can learn more efficiently and stably
+    scaler = StandardScaler()
+    X_train = scaler.fit_transform(X_train)
+    X_test = scaler.transform(X_test)
+    
+    #sequential is a type of network where each layer goes directly after the previous one (ideal for simple architectures)
+    model = Sequential([
+        #Dense creates a dense layer, it means its fully conected (each neuron is connected with all of the previous layer)
+        #Dense(number of neurons, each neuron uses the activation function ReLU (Rectified Linear Unit), which introduces
+        #  no-linearity, helpful for complex patterns)
+        Dense(64, activation='relu', input_shape=(X_train.shape[1],)),
+        Dense(32, activation='relu'),
+        Dense(1)  # just one output
+    ])
+
+    # configures how model is gonna be trained
+    model.compile(optimizer='adam',# adam is a very famous algorithm of weights optimization
+     loss='mean_squared_error',# This is the loss function(the measure the model tries to minimize),
+                               # MSE isIdeal for continuos regression problems like this 
+      metrics=['mae'])#set metrics used for evaluating the training, mean absolute error is easy to interpret
 
 
+    #train
+    history = model.fit(X_train, y_train, epochs=100, batch_size=16, validation_split=0.2)
 
 
-
-
-#MODELO
-X = data.drop('quality', axis=1)
-y = data['quality']
-
-# Normalizar
-scaler = StandardScaler()
-X_scaled = scaler.fit_transform(X)
-
-# Separar en train y test
-X_train, X_test, y_train, y_test = train_test_split(X_scaled, y, test_size=0.2, random_state=42)
-
-
-
-model = RandomForestClassifier(n_estimators=200, random_state=42)
-model.fit(X_train, y_train)
-
-# Predicciones
-y_pred = model.predict(X_test)
-
-# Evaluación
-print(classification_report(y_test, y_pred))
-print(confusion_matrix(y_test, y_pred))
+    #evaluate
+    loss, mae = model.evaluate(X_test, y_test)
+    print(f"Test MAE: {mae:.2f}")
 
 
 
-cm = confusion_matrix(y_test, y_pred)
-plt.figure(figsize=(8,6))
-sns.heatmap(cm, annot=True, fmt='d', cmap='Blues')
-plt.title('Matriz de Confusión')
-plt.xlabel('Predicho')
-plt.ylabel('Real')
-plt.show()
-
-importances = model.feature_importances_
-indices = np.argsort(importances)[::-1]
-
-plt.figure(figsize=(10,6))
-sns.barplot(x=importances[indices], y=X.columns[indices])
-plt.title('Importancia de las Características')
-plt.show()
