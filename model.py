@@ -2,6 +2,7 @@ from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler
 from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Dense
+import joblib 
 
 def model(df):
 
@@ -40,7 +41,6 @@ def model(df):
 
     #evaluate
     loss, mae = model.evaluate(X_test, y_test)
-    print(f"Test MAE: {mae:.2f}")
-
-
-
+    print(f"MAE:{mae:.2f} This tells you, on average, the model is predicting the wine quality within {mae:.2f} points on a 1–10 scale") 
+    model.save('wine_quality_model.h5')
+    joblib.dump(scaler, 'scaler.pkl')
