@@ -1,6 +1,8 @@
 # Wine Quality Data Mining #
 
-We used Kaggle’s Red/White Wine Quality dataset to build various classification models to predict whether a particular wine is “good quality” or not. Each wine in this dataset is given a “quality” score between 0 and 10. For the purpose of this project, we converted the output to a binary output where each wine is either “good quality” (a score of 6.5 or higher) or not (a score below 6.5). The quality of a wine is determined by 11 input variables:
+We used Kaggle’s Red/White Wine Quality [dataset] to build various classification models to predict whether a particular wine is “good quality” or not. Each wine in this dataset is given a “quality” score between 0 and 10. For the purpose of this project, we converted the output to a binary output where each wine is either “good quality” (a score of 6.5 or higher) or not (a score below 6.5). The quality of a wine is determined by 11 input variables:
+
+[dataset]: https://archive.ics.uci.edu/dataset/186/wine+quality
 
 
 # Dataset Explanation
